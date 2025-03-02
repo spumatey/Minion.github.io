@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Скример</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Чтобы скрыть полосы прокрутки */
+        }
+        #scary-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Чтобы изображение заполнило весь экран */
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Пугающее изображение -->
+    <img id="scary-image" src="minion.jpg" alt="Скример">
+
+    <!-- Аудио для скримера -->
+    <audio id="scary-sound" src="sound.mp3" preload="auto"></audio>
+
+    <script>
+        // Функция для запуска скримера
+        function startScare() {
+            // Воспроизводим звук на полной громкости
+            const audio = document.getElementById('scary-sound');
+            audio.volume = 1.0; // Максимальная громкость
+            audio.play();
+        }
+
+        // Запускаем скример сразу после загрузки страницы
+        window.onload = startScare;
+    </script>
+</body>
+</html>

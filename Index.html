@@ -7,7 +7,13 @@
     <style>
         body {
             margin: 0;
-            overflow: hidden; /* Чтобы скрыть полосы прокрутки */
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            cursor: pointer;
         }
         #scary-image {
             position: fixed;
@@ -15,29 +21,47 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Чтобы изображение заполнило весь экран */
+            object-fit: cover;
             z-index: 1000;
+            display: none;
+        }
+        #start-button {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
+    <button id="start-button">Нажмите, чтобы продолжить</button>
+    
     <!-- Пугающее изображение -->
     <img id="scary-image" src="minion.jpg" alt="Скример">
 
-    <!-- Аудио для скримера -->
-    <audio id="scary-sound" src="sound.mp3" preload="auto"></audio>
+    <!-- Аудио для скримера (добавлен атрибут loop) -->
+    <audio id="scary-sound" src="sound.mp3" preload="auto" loop></audio>
 
     <script>
-        // Функция для запуска скримера
-        function startScare() {
-            // Воспроизводим звук на полной громкости
+        document.getElementById('start-button').addEventListener('click', function() {
+            // Скрываем кнопку
+            this.style.display = 'none';
+            
+            // Показываем скример
+            const image = document.getElementById('scary-image');
             const audio = document.getElementById('scary-sound');
-            audio.volume = 1.0; // Максимальная громкость
-            audio.play();
-        }
-
-        // Запускаем скример сразу после загрузки страницы
-        window.onload = startScare;
+            
+            image.style.display = 'block';
+            audio.volume = 1.0;
+            
+            // Пытаемся воспроизвести звук (с зацикливанием)
+            audio.play().catch(e => {
+                console.error("Ошибка воспроизведения:", e);
+            });
+        });
     </script>
 </body>
 </html>
